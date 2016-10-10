@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {HelloComponent} from './hello';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { HelloComponent } from './hello';
 
 @Component({
   selector: 'fountain-root',
