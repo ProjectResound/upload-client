@@ -12,7 +12,7 @@ export class HelloComponent {
     this.hello = 'Hello Flow!';
 
     this.flow = new Flow({
-      target: '/api/photo/redeem-upload-token',
+      target: 'http://localhost:3030/upload',
       query: { upload_token: 'my_token' }
     });
 
@@ -20,5 +20,15 @@ export class HelloComponent {
       console.log('file added');
       console.log(file, event);
     });
+  }
+
+  uploadFile() {
+    console.log('upload file clicked');
+    console.log(`Trying to upload a file getSize: ${this.flow.getSize()}`);
+    this.flow.upload();
+  }
+
+  addFile(event) {
+    this.flow.addFiles(event.srcElement.files);
   }
 }

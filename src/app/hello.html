@@ -1,9 +1,6 @@
 <h1>{{ hello }}</h1>
-<div flow-init="{target: '/upload'}"
-     flow-files-submitted="$flow.upload()"
-     flow-file-success="$file.msg = $message">
-
-    <input type="file" flow-btn/>
+<div>
+    <input type="file" (change)="addFile($event)">
     Input OR Other element as upload button
-    <span class="btn" flow-btn>Upload File</span>
+    <span class="btn" (click)="uploadFile()">Upload File</span>
 </div>
