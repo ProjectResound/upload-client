@@ -75,9 +75,6 @@
     },
     "extends": [
       "xo-space/esnext"
-    ],
-    "rules": {
-      "new-cap": 0
-    }
+    ]
   }
 }

@@ -1,3 +1,5 @@
+/* global window */
+
 import { Component } from '@angular/core';
 
 const Flow = require('@flowjs/flow.js/dist/flow.min');
@@ -9,26 +11,49 @@ const Flow = require('@flowjs/flow.js/dist/flow.min');
 
 export class HelloComponent {
   constructor() {
-    this.hello = 'Hello Flow!';
-
     this.flow = new Flow({
-      target: 'http://localhost:3030/upload',
-      query: { upload_token: 'my_token' }
+      target: 'http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload',
+      chunkSize: 1024 * 512,
+      forceChunkSize: true,
+      allowDuplicateUploads: true
     });
 
-    this.flow.on('fileAdded', (file, event) => {
-      console.log('file added');
-      console.log(file, event);
+    this.flow.on('fileAdded', (file) => {
+      this.file = file;
+      this.progress = this.flow.progress();
+    });
+
+    this.flow.on('fileProgress', (file, chunk) => {
+      this.progress = this.flow.progress();
+      console.log(chunk.status());
+      if (chunk.status() !== 'success') {
+        console.log('retrying send');
+        chunk.send();
+      }
+    });
+
+    this.flow.on('error', (file, message) => {
+      this.error = message;
     });
   }
 
-  uploadFile() {
-    console.log('upload file clicked');
-    console.log(`Trying to upload a file getSize: ${this.flow.getSize()}`);
+  upload() {
     this.flow.upload();
   }
 
   addFile(event) {
     this.flow.addFiles(event.srcElement.files);
+  }
+
+  pause() {
+    this.flow.pause();
+  }
+
+  resume() {
+    this.flow.resume();
+  }
+
+  cancel() {
+    this.flow.cancel();
   }
 }
