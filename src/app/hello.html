@@ -1,13 +1,30 @@
-<h1>File Upload POC</h1>
-<div>
-    <input type="file" (change)="addFile($event)">
-    <button class="btn" (click)="upload()">Upload File</button>
-    <div *ngIf="file">
-        Uploading: {{ file.name }}
+<div class="container">
+    <h1>File Upload POC</h1>
+    <div class="row">
+        <input type="file" (change)="addFile($event)">
+        <button class="btn" (click)="upload()">Upload File</button>
+    </div>
+    <div *ngIf="file" class="row">
+        <div class="col">
+            <h2>{{ progress }}%</h2>
+        </div>
+        <div class="col">
+            <button class="btn orange darken-1" (click)="pause()">Pause Upload</button>
+        </div>
+        <div class="col">
+            <button class="btn green darken-2" (click)="resume()">Resume Upload</button>
+        </div>
+        <div class="col">
+            <button class="btn blue-grey lighten-3" (click)="cancel()">Cancel Upload</button>
+        </div>
+    </div>
+    <br />
+    <div [hidden]="!success">
+        Your file has been successfully uploaded.
+    </div>
+    <div [hidden]="!error">
+        There was an error with your upload. Please try again.
         <br />
-        {{ progress * 100 }}%
-        <button class="btn" (click)="pause()">Pause Upload</button>
-        <button class="btn" (click)="resume()">Resume Upload</button>
-        <button class="btn" (click)="cancel()">Cancel Upload</button>
+        {{ error }}
     </div>
 </div>
