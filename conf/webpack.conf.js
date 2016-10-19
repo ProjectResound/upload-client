@@ -14,7 +14,6 @@ module.exports = {
         loader: 'eslint'
       }
     ],
-
     loaders: [
       {
         test: /.json$/,
@@ -33,16 +32,23 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules|flac)/,
         loaders: [
           'babel'
         ]
       },
+      { test: /\.tsx?$/, loader: 'ts-loader' },
       {
         test: /.html$/,
         loaders: [
           'html'
         ]
+      }
+    ],
+    postLoaders: [
+      {
+        test: /\.worker\.js$/,
+        loader: 'worker'
       }
     ]
   },

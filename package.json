@@ -8,11 +8,15 @@
     "@angular/platform-browser-dynamic": "^2.0.0",
     "@angular/router": "^3.0.0",
     "@flowjs/flow.js": "^2.11.2",
+    "angular2-web-worker": "^0.0.3",
     "core-js": "^2.4.1",
     "rxjs": "5.0.0-beta.12",
+    "ts-loader": "^0.9.4",
+    "typescript": "^2.0.3",
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
+    "@types/core-js": "^0.9.34",
     "autoprefixer": "^6.2.2",
     "babel-core": "^6.13.0",
     "babel-eslint": "^6.0.2",
@@ -58,7 +62,9 @@
     "postcss-loader": "^0.8.0",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
-    "webpack": "2.1.0-beta.20"
+    "typings": "^1.4.0",
+    "webpack": "2.1.0-beta.20",
+    "worker-loader": "^0.7.1"
   },
   "scripts": {
     "build": "gulp",

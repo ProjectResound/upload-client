@@ -1,6 +1,10 @@
-/* global window */
+/* global window, FileReader, File */
 
 import { Component } from '@angular/core';
+
+const FlacEncoder = require('../EmsWorkerProxy.worker.js');
+
+const worker = new FlacEncoder();
 
 const Flow = require('@flowjs/flow.js/dist/flow.min');
 
@@ -10,7 +14,22 @@ const Flow = require('@flowjs/flow.js/dist/flow.min');
 })
 
 export class HelloComponent {
+
   constructor() {
+    this.fileNames = [];
+
+    worker.onmessage = (e) => {
+      if (e.data && e.data.reply === 'done') {
+        console.log(e.data);
+        this.fileNames.forEach((fileName) => {
+          const url = window.URL.createObjectURL(e.data.values[fileName].blob);
+          const file = new File([e.data.values[fileName].blob], fileName, { type: 'audio/x-flac' });
+          console.log(file);
+          this.flow.addFile(file);
+        });
+      }
+    };
+
     this.flow = new Flow({
       target: 'http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload',
       chunkSize: 1024 * 512,
@@ -19,7 +38,6 @@ export class HelloComponent {
     });
 
     this.flow.on('fileAdded', (file) => {
-      console.log('file added');
       this.file = file;
       this.progress = parseInt(this.flow.progress() * 100, 10);
     });
@@ -36,7 +54,6 @@ export class HelloComponent {
     });
 
     this.flow.on('fileSuccess', (file, message) => {
-      console.log(`success: ${message}`);
       if (message === ' ') {
         return;
       }
@@ -52,14 +69,33 @@ export class HelloComponent {
   }
 
   upload() {
-    this.flow.upload();
     this.error = false;
     this.success = false;
+    this.flow.upload();
   }
 
   addFile(event) {
     this.flow.cancel();
-    this.flow.addFiles(event.srcElement.files);
+    const outData = {};
+    const f = event.srcElement.files[0];
+    const fr = new FileReader();
+    fr.addEventListener('loadend', () => {
+      const encodedName = f.name.replace(/\.[^\.]+$/, '.flac');
+      this.fileNames.push(encodedName);
+      outData[encodedName] = {
+        MIME: 'audio/flac'
+      };
+      const args = [f.name, '--fast', '-T "TITLE=Prius audio test"', '-T "ARTIST=Louise"'];
+      const fileData = {};
+      fileData[f.name] = new Uint8Array(fr.result);
+      worker.postMessage({
+        command: 'encode',
+        outData,
+        args,
+        fileData
+      });
+    });
+    fr.readAsArrayBuffer(f);
   }
 
   pause() {

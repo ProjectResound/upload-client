@@ -14,5 +14,9 @@
         "istanbul"
       ]
     }
-  }
+  },
+  "ignore": [
+    "*.worker.js",
+    "flac*.js"
+  ]
 }
