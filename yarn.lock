@@ -12,6 +12,10 @@
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-2.1.0.tgz#a2fdb0f76f72e5ac521feadd4d119f60afff2bd3"
 
+"@angular/forms":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-2.1.2.tgz#c55539ea5da6d60f64475f39392ae5dd76a7e990"
+
 "@angular/http@^2.0.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@angular/http/-/http-2.1.0.tgz#19aad01f791aa1e3794863d21b35bc377ce76987"
@@ -6833,6 +6837,6 @@ zip-object@^0.1.0:
   resolved "https://registry.yarnpkg.com/zip-object/-/zip-object-0.1.0.tgz#c1a0da04c88c837756e248680a03ff902ec3f53a"
 
 zone.js@^0.6.23:
-  version "0.6.25"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.6.25.tgz#a41b57fe8c0ff3b8f077de3b193a86a234420301"
+  version "0.6.26"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.6.26.tgz#067c13b8b80223a89b62e9dc82680f09762c4636"
 

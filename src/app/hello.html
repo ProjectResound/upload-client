@@ -2,9 +2,9 @@
     <h1>File Upload POC</h1>
     <div class="row">
         <input type="file" (change)="addFile($event)">
-        <button class="btn" (click)="upload()">Upload File</button>
+        <button class="btn" (click)="upload()" *ngIf="metadataForm.valid && showUpload">Upload File</button>
     </div>
-    <div *ngIf="file" class="row">
+    <div *ngIf="showProgress" class="row">
         <div class="col">
             <h2>{{ progress }}%</h2>
         </div>
@@ -18,6 +18,19 @@
             <button class="btn blue-grey lighten-3" (click)="cancel()">Cancel Upload</button>
         </div>
     </div>
+    <form [formGroup]="metadataForm" *ngIf="showMeta" class="row">
+        <div class="col">
+            <label>Title:</label>
+            <input type="text" formControlName="title">
+            <p *ngIf="metadataForm.controls.title.errors">This is a required field</p>
+
+        </div>
+        <div class="col">
+            <label>Author:</label>
+            <input type="text" formControlName="author">
+            <p *ngIf="metadataForm.controls.author.errors">This is a required field</p>
+        </div>
+    </form>
     <br />
     <div [hidden]="!success">
         Your file has been successfully uploaded.

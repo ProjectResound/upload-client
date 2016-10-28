@@ -1,6 +1,7 @@
 /* global window, FileReader, File */
 
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 const FlacEncoder = require('../EmsWorkerProxy.worker.js');
 
@@ -14,18 +15,26 @@ const Flow = require('@flowjs/flow.js/dist/flow.min');
 })
 
 export class HelloComponent {
-
-  constructor() {
-    this.fileNames = [];
-
+  ngOnInit() {
+    this.metadataForm = this.formBuilder.group(
+      {
+        title: ['', Validators.required],
+        author: ['', Validators.required]
+      }
+    );
+  }
+  constructor(zone: NgZone) {
+    this.zone = zone;
+    this.formBuilder = new FormBuilder();
     worker.onmessage = (e) => {
       if (e.data && e.data.reply === 'done') {
-        console.log(e.data);
-        this.fileNames.forEach((fileName) => {
-          const url = window.URL.createObjectURL(e.data.values[fileName].blob);
-          const file = new File([e.data.values[fileName].blob], fileName, { type: 'audio/x-flac' });
-          console.log(file);
-          this.flow.addFile(file);
+        const fileObject = new File([e.data.values[this.encodedFileName].blob], this.encodedFileName, { type: 'audio/x-flac' });
+        this.zone.run(() => {
+          this.flow.addFile(fileObject);
+          this.flow.upload();
+          this.showProgress = true;
+          this.progress = parseInt(this.flow.progress() * 100, 10);
+          this.showUpload = false;
         });
       }
     };
@@ -35,11 +44,6 @@ export class HelloComponent {
       chunkSize: 1024 * 512,
       forceChunkSize: true,
       allowDuplicateUploads: true
-    });
-
-    this.flow.on('fileAdded', (file) => {
-      this.file = file;
-      this.progress = parseInt(this.flow.progress() * 100, 10);
     });
 
     this.flow.on('fileProgress', (file, chunk) => {
@@ -71,23 +75,33 @@ export class HelloComponent {
   upload() {
     this.error = false;
     this.success = false;
-    this.flow.upload();
+    this._readFile(this.encodedFileName);
   }
 
   addFile(event) {
+    this.showMeta = true;
+    this.showUpload = true;
     this.flow.cancel();
-    const outData = {};
     const f = event.srcElement.files[0];
+    this.encodedFileName = f.name.replace(/\.[^\.]+$/, '.flac');
+    this.file = f;
+  }
+
+  _readFile(encodedFileName) {
     const fr = new FileReader();
     fr.addEventListener('loadend', () => {
-      const encodedName = f.name.replace(/\.[^\.]+$/, '.flac');
-      this.fileNames.push(encodedName);
-      outData[encodedName] = {
+      const outData = {};
+      outData[encodedFileName] = {
         MIME: 'audio/flac'
       };
-      const args = [f.name, '--fast', '-T "TITLE=Prius audio test"', '-T "ARTIST=Louise"'];
+      const args = [
+        this.file.name,
+        '--fast',
+        `-T "TITLE=${this.metadataForm.controls.title.value}"`,
+        `-T "ARTIST=${this.metadataForm.controls.author.value}"`
+      ];
       const fileData = {};
-      fileData[f.name] = new Uint8Array(fr.result);
+      fileData[this.file.name] = new Uint8Array(fr.result);
       worker.postMessage({
         command: 'encode',
         outData,
@@ -95,7 +109,7 @@ export class HelloComponent {
         fileData
       });
     });
-    fr.readAsArrayBuffer(f);
+    fr.readAsArrayBuffer(this.file);
   }
 
   pause() {
