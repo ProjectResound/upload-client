@@ -79,10 +79,11 @@ export class HelloComponent {
   }
 
   addFile(event) {
+    const srcElement = event.srcElement || event.target;
     this.showMeta = true;
     this.showUpload = true;
     this.flow.cancel();
-    const f = event.srcElement.files[0];
+    const f = srcElement.files[0];
     this.encodedFileName = f.name.replace(/\.[^\.]+$/, '.flac');
     this.file = f;
   }
