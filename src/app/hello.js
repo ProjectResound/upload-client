@@ -1,4 +1,4 @@
-/* global window, FileReader, File */
+/* global window, FileReader, Blob */
 
 import { Component, NgZone } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -28,7 +28,8 @@ export class HelloComponent {
     this.formBuilder = new FormBuilder();
     worker.onmessage = (e) => {
       if (e.data && e.data.reply === 'done') {
-        const fileObject = new File([e.data.values[this.encodedFileName].blob], this.encodedFileName, { type: 'audio/x-flac' });
+        const fileObject = new Blob([e.data.values[this.encodedFileName].blob], { type: 'audio/x-flac' });
+        fileObject.name = this.encodedFileName;
         this.zone.run(() => {
           this.flow.addFile(fileObject);
           this.flow.upload();
