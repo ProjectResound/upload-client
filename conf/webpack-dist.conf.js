@@ -4,6 +4,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -43,6 +44,12 @@ module.exports = {
           'html'
         ]
       }
+    ],
+    postLoaders: [
+      {
+        test: /\.worker\.js$/,
+        loader: 'worker'
+      }
     ]
   },
   plugins: [
@@ -62,7 +69,21 @@ module.exports = {
       compress: {unused: true, dead_code: true, warnings: false} // eslint-disable-line camelcase
     }),
     new ExtractTextPlugin('index-[contenthash].css'),
-    new webpack.optimize.CommonsChunkPlugin({name: 'vendor'})
+    new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
+    new CopyWebpackPlugin([
+      {
+        from: conf.path.src('EmsArgs.js')
+      },
+      {
+        from: conf.path.src('flac.data.js')
+      },
+      {
+        from: conf.path.src('flac.js')
+      },
+      {
+        from: conf.path.src('FlacEncoder.js')
+      }
+    ])
   ],
   postcss: () => [autoprefixer],
   output: {

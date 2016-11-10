@@ -3,7 +3,7 @@
 import { Component, NgZone } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-const FlacEncoder = require('../EmsWorkerProxy.worker.js');
+const FlacEncoder = require('./flac.worker.js');
 
 const worker = new FlacEncoder();
 
@@ -11,10 +11,10 @@ const Flow = require('@flowjs/flow.js/dist/flow.min');
 
 @Component({
   selector: 'fountain-app',
-  template: require('./hello.html')
+  template: require('./upload.html')
 })
 
-export class HelloComponent {
+export class UploadComponent {
   ngOnInit() {
     this.metadataForm = this.formBuilder.group(
       {

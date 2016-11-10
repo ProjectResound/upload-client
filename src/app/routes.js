@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HelloComponent } from './hello';
+import { UploadComponent } from './upload/upload';
 
 @Component({
   selector: 'fountain-root',
@@ -11,7 +11,7 @@ export class RootComponent {}
 export const routes = [
   {
     path: '',
-    component: HelloComponent
+    component: UploadComponent
   }
 ];
 

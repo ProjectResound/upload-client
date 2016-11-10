@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { routing, RootComponent } from './routes';
-import { HelloComponent } from './hello';
+import { UploadComponent } from './upload/upload';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { HelloComponent } from './hello';
   ],
   declarations: [
     RootComponent,
-    HelloComponent
+    UploadComponent
   ],
   bootstrap: [RootComponent]
 })
