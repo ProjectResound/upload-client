@@ -5,13 +5,13 @@ self.onmessage = function (e) {
       break;
     case 'encode':
       if ( !global.FlacEncoder )  {
-        importScripts( 'FlacEncoder.js' );
+        importScripts( './flac/FlacEncoder.js' );
       }
       FlacEncoder.encode( e.data );
       break;
     case 'prefetch':
       if ( !global.FlacEncoder )  {
-        importScripts( 'FlacEncoder.js' );
+        importScripts( './flac/FlacEncoder.js' );
         FlacEncoder.prefetch( e.data );
       }
       break;

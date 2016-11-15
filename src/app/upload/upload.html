@@ -1,21 +1,19 @@
 <div class="container">
-    <h1>File Upload POC</h1>
+    <h1>Loudly / Store + Manage</h1>
     <div class="row">
         <input type="file" (change)="addFile($event)">
         <button class="btn" (click)="upload()" *ngIf="metadataForm.valid && showUpload">Upload File</button>
+        <div *ngIf="showEncodingMsg">Encoding...</div>
     </div>
     <div *ngIf="showProgress" class="row">
         <div class="col">
             <h2>{{ progress }}%</h2>
         </div>
         <div class="col">
-            <button class="btn orange darken-1" (click)="pause()">Pause Upload</button>
+            <button class="btn orange darken-1" (click)="pause()" *ngIf="!uploadPaused">Pause Upload</button>
         </div>
         <div class="col">
-            <button class="btn green darken-2" (click)="resume()">Resume Upload</button>
-        </div>
-        <div class="col">
-            <button class="btn blue-grey lighten-3" (click)="cancel()">Cancel Upload</button>
+            <button class="btn green darken-2" (click)="resume()" *ngIf="uploadPaused">Resume Upload</button>
         </div>
     </div>
     <form [formGroup]="metadataForm" *ngIf="showMeta" class="row">
@@ -32,10 +30,10 @@
         </div>
     </form>
     <br />
-    <div [hidden]="!success">
+    <div *ngIf="success">
         Your file has been successfully uploaded.
     </div>
-    <div [hidden]="!error">
+    <div *ngIf="error">
         There was an error with your upload. Please try again.
         <br />
         {{ error }}

@@ -3,6 +3,7 @@ const conf = require('./gulp.conf');
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -61,7 +62,13 @@ module.exports = {
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
       conf.paths.src
-    )
+    ),
+    new CopyWebpackPlugin([
+      {
+        from: conf.path.src('app/upload/flac'),
+        to: 'flac'
+      }
+    ])
   ],
   postcss: () => [autoprefixer],
   debug: true,

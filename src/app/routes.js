@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { UploadComponent } from './upload/upload';
 
 @Component({
-  selector: 'fountain-root',
+  selector: 'loudly-root',
   template: '<router-outlet></router-outlet>'
 })
 export class RootComponent {}

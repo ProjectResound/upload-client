@@ -72,16 +72,8 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
     new CopyWebpackPlugin([
       {
-        from: conf.path.src('EmsArgs.js')
-      },
-      {
-        from: conf.path.src('flac.data.js')
-      },
-      {
-        from: conf.path.src('flac.js')
-      },
-      {
-        from: conf.path.src('FlacEncoder.js')
+        from: conf.path.src('app/upload/flac'),
+        to: 'flac'
       }
     ])
   ],

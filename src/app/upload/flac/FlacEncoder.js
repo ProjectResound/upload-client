@@ -42,7 +42,7 @@
 			MainScriptLoader.downloadAndExecute( data, function() {
 				// Before execute main script ...
 				if ( !global.EmsArgs ){
-					importScripts( 'EmsArgs.js' );
+					importScripts( './flac/EmsArgs.js' );
 				}
 				FlacEncoder.setUpModule( data );
 			}, function() {
@@ -59,7 +59,7 @@
 			}
 			FlacEncoder.setUpLogging( data );
 			MainScriptLoader.xhrload( data );
-			importScripts( 'EmsArgs.js' );
+			importScripts( './flac/EmsArgs.js' );
 		},
 
 		setUpLogging: function( data ) {
@@ -130,7 +130,7 @@
 					console.log( 'Loading run dependencies. Outstanding: ' + runDeps );
 				},
 				locateFile: function( memFile ) {
-					return memFile.replace( /^flac\.(html|js)\.mem$/, 'flac.data.js' );
+					return memFile.replace( /^flac\.(html|js)\.mem$/, './flac/flac.data.js' );
 				}
 			};
 		},
@@ -288,7 +288,7 @@
 	 *  @private
 	 */
 	MainScriptLoader = {
-		name: 'flac.js',
+		name: './flac/flac.js',
 		text: null,
 		status: 'idle',
 		xhrload: function( data, complete, err ) {
