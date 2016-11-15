@@ -9,8 +9,14 @@ Integrity of the file is done by checking the file size in bytes.  While this is
 
 ## Requirements
 
+Development requirements:
+
 * npm
 * gulp
+
+Production requirements:
+
+* docker
 
 
 ## Development
@@ -21,4 +27,10 @@ Integrity of the file is done by checking the file size in bytes.  While this is
 
 For production, pull down the docker image of just the distribution version of the app and run the following command, which will start nginx and serve all the files needed for the app.
 
-`docker run --name="loudly-upload" -d -v /nginx-logs:/var/log/nginx -p 8080:80 521425532736.dkr.ecr.us-west-2.amazonaws.com/loudly`
+`docker run -d -v /nginx-logs:/var/log/nginx -p 8080:80 docker.io/scprdev/loudly-store-manage`
+
+To see this in action in your browser, get your docker machine's ip:
+
+`docker-machine ip`
+
+And visit the url in your browser: http://[DOCKER-MACHINE-IP]:8080
