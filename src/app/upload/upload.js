@@ -22,6 +22,9 @@ export class UploadComponent {
         author: ['', Validators.required]
       }
     );
+    this.worker.postMessage({
+      command: 'prefetch'
+    });
   }
   constructor(zone: NgZone) {
     this.worker = new FlacEncoder();
