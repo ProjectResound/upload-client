@@ -39,10 +39,6 @@ export class UploadComponent {
 
     this.flow.on('fileProgress', (file, chunk) => {
       this.progress = parseInt(this.flow.progress() * 100, 10);
-      if (chunk.status() !== 'success') {
-        this.uploadDone = true;
-        chunk.send();
-      }
     });
 
     this.flow.on('error', (file, message) => {
