@@ -1,0 +1,30 @@
+<div class="queue" [ngClass]="dropzoneClasses"
+     (dragover)="dragOver($event)"
+     (drop)="onDrop($event)"
+     (dragleave)="dragLeave($event)"
+>
+  <div class="header" *ngIf="dropzoneQueueKeysArray().length > 0">
+    Files You're Uploading
+  </div>
+  <div class="valign-wrapper" *ngIf="dropzoneQueueKeysArray().length === 0">
+    <div class="valign" >
+      <div class="text">
+        Drag & drop your files here
+      </div>
+      <label class="upload-input-container btn">
+        Or, browse for files
+        <input type="file" (change)="onInputChange($event)" #fileInput>
+      </label>
+    </div>
+  </div>
+  <div class="dz-preview dz-file-preview" *ngFor="let key of dropzoneQueueKeysArray()">
+    <file-upload [file]="dropzoneQueue[key]"
+                 (onUpload)="upload($event)"
+                 (cancel)="removeFile($event)"
+                 (pause)="pauseUpload($event)"
+                 (resume)="resumeUpload($event)"></file-upload>
+  </div>
+  <div class="footer" *ngIf="dropzoneQueueKeysArray().length > 0">
+    Drag & drop more files to add them to your queue
+  </div>
+</div>

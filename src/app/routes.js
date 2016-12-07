@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UploadComponent } from './upload/upload';
+import { LoudlyComponent } from './loudly';
 
 @Component({
   selector: 'loudly-root',
-  template: '<router-outlet></router-outlet>'
+  template: require('./root.html')
 })
 export class RootComponent {}
 
 export const routes = [
   {
     path: '',
-    component: UploadComponent
+    component: LoudlyComponent
   }
 ];
 

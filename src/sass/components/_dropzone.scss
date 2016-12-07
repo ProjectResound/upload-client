@@ -1,0 +1,225 @@
+// Dropzone
+.loudly-upload {
+  $upload-bar-height: 30px;
+  $bar-button-width: 30px;
+  margin-bottom: 0px;
+
+  .dropzone {
+    background-color: $secondary-background-color;
+    min-height: 100vh;
+    padding: 0 0;
+
+    .dz-started {
+      .dz-message {
+        display: none;
+      }
+    }
+
+    .dz-drag-hover {
+      border: 2px $primary-color dashed;
+      .dz-message {
+        opacity: 0.5;
+      }
+    }
+  }
+  .dropzone.dz-wrapper .dz-message {
+    background-color: $secondary-background-color;
+    border: none;
+  }
+  .queue {
+    min-height: 100vh;
+  }
+
+  .queue > .header {
+    padding: 1em;
+    color: $secondary-color;
+    font-size: 1.2em;
+  }
+
+  .queue > .footer {
+    padding: 1rem;
+    font-size: .9rem;
+    color: $secondary-color;
+    font-style: italic;
+  }
+
+  .valign-wrapper {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .queue .text {
+    color: $secondary-color;
+    font-size: 1.5rem;
+    font-weight: lighter;
+  }
+
+  .upload-input-container {
+    overflow: hidden;
+    position: relative;
+  }
+
+  input[type=file] {
+    display: none;
+  }
+
+  .btn {
+    background-color: $primary-color;
+    color: white;
+    padding: 0.75em;
+    margin-top: 1em;
+  }
+
+  .children-right {
+    width: 100%;
+    text-align: right;
+  }
+
+  .action-btn {
+    display: inline-block;
+    font-size: 0.75em;
+    padding: 0.75em 1.5em;
+  }
+
+  .action-btn:disabled {
+    opacity: 0.5;
+  }
+
+  .queue-title {
+    color: $secondary-color;
+    margin: 1em;
+  }
+
+  .dz-filename {
+    margin-bottom: 1em;
+  }
+
+  .dz-preview {
+    margin: 1px 2px;
+    background: white;
+    padding: 1em 1.5em;
+    position: relative;
+  }
+
+  .dz-preview .cancel {
+    color: $gray-color;
+    cursor: pointer;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+  }
+
+  label {
+    color: $gray-color;
+    display: block;
+    font-size: 0.75em;
+    font-weight: 600;
+  }
+
+  input[type=text] {
+    min-width: 100%;
+  }
+
+  form .alert {
+    font-size: 0.7rem;
+    color: $error-color;
+  }
+
+  .progress-wrapper {
+    position: relative;
+    height: $upload-bar-height;
+    display: block;
+    width: 100%;
+    background-color: lighten($secondary-color, 40%);
+    border-radius: 2px;
+    margin: 0;
+    overflow: hidden;
+
+    &.paused {
+      background-color: lighten($error-color, 20%);
+    }
+  }
+
+  .progress-wrapper > .progress {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: $bar-button-width;
+    bottom: 0;
+    background-color: $secondary-color;
+    transition: width .3s linear;
+    font-size: 0.75rem;
+    padding-top: 7px;
+    padding-left: 7px;
+    white-space: nowrap;
+  }
+
+  .paused .progress {
+    background-color: lighten($error-color, 10%);
+  }
+
+  .progress-wrapper > .upload-pause {
+    padding: 0;
+    width: $bar-button-width;
+    height: $upload-bar-height;
+  }
+
+  .progress-wrapper > .upload-pause > img {
+    height: 100%;
+  }
+
+  .completed-container .file-title {
+    position: relative;
+  }
+
+  .completed-container .file-title > img {
+    position: absolute;
+    top: 3px;
+    left: -20px;
+  }
+
+  .completed-container .details {
+    font-size: 0.75rem;
+    color: $gray-color;
+    padding: 0;
+  }
+
+  .completed-container .edit {
+    text-align: right;
+    padding: 0;
+  }
+
+  .completed-container .row{
+    margin: 1em 0 0 0;
+  }
+
+  .completed-container a {
+    font-size: 0.75rem;
+    color: $secondary-color;
+  }
+
+  .cancel-container {
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 2em 1em;
+  }
+
+  .cancel-container .prompt {
+    font-weight: lighter;
+  }
+
+  .cancel-container .btn {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    width: 60px;
+    display: inline-block;
+    text-align: center;
+
+    &.no {
+      background-color: lighten($primary-color, 20%);
+    }
+  }
+}

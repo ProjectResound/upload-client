@@ -1,0 +1,71 @@
+<a class="cancel" (click)="onCancel()"><img src="/assets/images/button-remove.png"></a>
+<form [formGroup]="fileForm" (ngSubmit)="submitForm(file, fileForm.value)" *ngIf="!file.status.state">
+  <div class="dz-details">
+    <div class="dz-filename">{{file.name}}</div>
+    <div class="row form-group">
+      <label>Title</label>
+      <input class="form-control" type="text" placeholder="What is this file about?"
+             [formControl]="fileForm.controls['title']">
+      <div class="alert" *ngIf="!fileForm.controls['title'].pristine && !fileForm.controls['title'].valid">
+        You must provide a title (min {{textFieldMin}} chars).
+      </div>
+    </div>
+    <div class="row form-group">
+      <label>Contributor</label>
+      <input class="form-control" type="text" placeholder="Who made this? (Separate 2+ names with commas)"
+             [formControl]="fileForm.controls['contributor']">
+      <div class="alert" *ngIf="!fileForm.controls['contributor'].pristine && !fileForm.controls['contributor'].valid">
+        You must provide a contributor name (min {{textFieldMin}} chars).
+      </div>
+    </div>
+  </div>
+  <div class="children-right form-group">
+    <button type="submit" class="action-btn btn upload-button" [disabled]="!fileForm.valid">
+      Upload this file
+    </button>
+  </div>
+</form>
+<div *ngIf="file.status && file.status.state === 'uploading'">
+  <div class="file-title">{{file.formValues.title}}</div>
+  <div class="progress-wrapper">
+    <button class="upload-pause" (click)="pause.emit(file); false;">
+      <img src="/assets/images/button-pause_upload.png" alt="Pause Upload">
+    </button>
+    <div class="progress" [ngStyle]="{'width': file.status.progress + '%'}">
+      Loading ({{file.status.progress}}%)
+    </div>
+  </div>
+</div>
+<div *ngIf="file.status && file.status.state === 'paused'">
+  <div class="file-title">{{file.formValues.title}}</div>
+  <div class="progress-wrapper paused">
+    <button class="upload-pause" (click)="resume.emit(file); false;">
+      <img src="/assets/images/button-resume_upload.png" alt="Resume Upload">
+    </button>
+    <div class="progress" [ngStyle]="{'width': file.status.progress + '%'}">
+      Paused at {{file.status.progress}}%
+    </div>
+  </div>
+</div>
+<div *ngIf="file.status && file.status.state === 'completed'" class="completed-container">
+  <div class="file-title">
+    <img src="/assets/images/indicator-success.png" class="indicator-success">
+    {{file.formValues.title}}
+  </div>
+  <div class="row">
+    <div class="col s6 details">{{file.duration | duration }} | {{file.size}} MB</div>
+    <div class="col s6 edit">
+      <a>Edit this file</a>
+    </div>
+  </div>
+</div>
+<div *ngIf="file.status && file.status.state === 'canceling'" class="cancel-container">
+  <div class="prompt">
+    Are you sure you want to remove this file?
+  </div>
+  <div class="file-title">
+    {{file.name}}
+  </div>
+  <a class="btn yes" (click)="cancelConfirmed(true)">Yes</a>
+  <a class="btn no" (click)="cancelConfirmed(false)">No</a>
+</div>

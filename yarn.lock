@@ -110,6 +110,12 @@ amdefine@>=0.0.4:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.0.tgz#fd17474700cb5cc9c2b709f0be9d23ce3c198c33"
 
+angular2-moment:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/angular2-moment/-/angular2-moment-1.0.0.tgz#540ee3bf1e5ee8edf76117dee421efc2cd8928cd"
+  dependencies:
+    moment "^2.16.0"
+
 angular2-web-worker:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/angular2-web-worker/-/angular2-web-worker-0.0.3.tgz#340ccb9646d7d94e5e3eead3e13804d32ee08ef2"
@@ -4476,6 +4482,10 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, "mkdirp@>=0.5 0", mkdirp@~0.5.0, mkdirp@~0.5.1, mk
 mkdirp@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.3.0.tgz#1bbf5ab1ba827af23575143490426455f481fe1e"
+
+moment@^2.16.0:
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
 ms@0.7.1:
   version "0.7.1"

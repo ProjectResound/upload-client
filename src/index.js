@@ -7,7 +7,7 @@ import 'rxjs';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import './index.scss';
+import './sass/index.scss';
 import { AppModule } from './app';
 
 if (process.env.NODE_ENV === 'production') {
