@@ -22,6 +22,8 @@ $primary-color: #1e66c3 !default;
 $primary-color-light: lighten($primary-color, 15%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
+$primary-background-color: #FFFFFF !default;
+
 $secondary-color: #3d84e0 !default;
 $success-color: $primary-color !default;
 $error-color: #E00800 !default;
@@ -58,7 +60,7 @@ $collection-link-color: $secondary-color !default;
 $navbar-height: 64px !default;
 $navbar-height-mobile: 56px !default;
 $navbar-font-size: 1rem !default;
-$navbar-font-color: #fff !default;
+$navbar-font-color: $primary-color !default;
 $navbar-brand-font-size: 2.1rem !default;
 
 // Footer

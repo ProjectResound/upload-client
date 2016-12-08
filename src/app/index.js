@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { routing, RootComponent } from './routes';
+import { LoudlyComponent } from './loudly';
 import { UploadComponent } from './upload/upload';
 
 @NgModule({
@@ -13,6 +14,7 @@ import { UploadComponent } from './upload/upload';
   ],
   declarations: [
     RootComponent,
+    LoudlyComponent,
     UploadComponent
   ],
   bootstrap: [RootComponent]

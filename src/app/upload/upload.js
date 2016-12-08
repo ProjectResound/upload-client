@@ -10,7 +10,7 @@ const uploadEndpoint = 'http://localhost:3000/upload';
 // 'http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload';
 
 @Component({
-  selector: 'loudly-app',
+  selector: 'upload-zone',
   template: require('./upload.html')
 })
 

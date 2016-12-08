@@ -1,41 +1,40 @@
-<div class="container">
-    <h1>Loudly / Store + Manage</h1>
-    <div class="row">
+<div class="row">
+    <div class="col s3">
         <input type="file" (change)="addFile($event)">
         <button class="btn" (click)="upload()" *ngIf="metadataForm.valid && showUpload">Upload File</button>
         <div *ngIf="showEncodingMsg">Encoding...</div>
-    </div>
-    <div *ngIf="showProgress" class="row">
-        <div class="col">
-            <h2>{{ progress }}%</h2>
-        </div>
-        <div class="col">
-            <button class="btn orange darken-1" (click)="pause()" *ngIf="!uploadPaused">Pause Upload</button>
-        </div>
-        <div class="col">
-            <button class="btn green darken-2" (click)="resume()" *ngIf="uploadPaused">Resume Upload</button>
-        </div>
-    </div>
-    <form [formGroup]="metadataForm" *ngIf="showMeta" class="row">
-        <div class="col">
-            <label>Title:</label>
-            <input type="text" formControlName="title">
-            <p *ngIf="metadataForm.controls.title.errors">This is a required field</p>
+      <div *ngIf="showProgress" class="col s9">
+          <div class="col">
+              <h2>{{ progress }}%</h2>
+          </div>
+          <div class="col">
+              <button class="btn orange darken-1" (click)="pause()" *ngIf="!uploadPaused">Pause Upload</button>
+          </div>
+          <div class="col">
+              <button class="btn green darken-2" (click)="resume()" *ngIf="uploadPaused">Resume Upload</button>
+          </div>
+      </div>
+      <form [formGroup]="metadataForm" *ngIf="showMeta" class="row">
+          <div class="col">
+              <label>Title:</label>
+              <input type="text" formControlName="title">
+              <p *ngIf="metadataForm.controls.title.errors">This is a required field</p>
 
-        </div>
-        <div class="col">
-            <label>Author:</label>
-            <input type="text" formControlName="author">
-            <p *ngIf="metadataForm.controls.author.errors">This is a required field</p>
-        </div>
-    </form>
-    <br />
-    <div *ngIf="success">
-        Your file has been successfully uploaded.
-    </div>
-    <div *ngIf="error">
-        There was an error with your upload. Please try again.
-        <br />
-        {{ error }}
+          </div>
+          <div class="col">
+              <label>Author:</label>
+              <input type="text" formControlName="author">
+              <p *ngIf="metadataForm.controls.author.errors">This is a required field</p>
+          </div>
+      </form>
+      <br />
+      <div *ngIf="success">
+          Your file has been successfully uploaded.
+      </div>
+      <div *ngIf="error">
+          There was an error with your upload. Please try again.
+          <br />
+          {{ error }}
+      </div>
     </div>
 </div>
