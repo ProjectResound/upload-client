@@ -110,6 +110,12 @@ amdefine@>=0.0.4:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.0.tgz#fd17474700cb5cc9c2b709f0be9d23ce3c198c33"
 
+angular2-dropzone-wrapper:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/angular2-dropzone-wrapper/-/angular2-dropzone-wrapper-0.9.2.tgz#5875906def9a94d5b98496b8e458d5b9a92e5d0c"
+  dependencies:
+    dropzone "4.3.0"
+
 angular2-web-worker:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/angular2-web-worker/-/angular2-web-worker-0.0.3.tgz#340ccb9646d7d94e5e3eead3e13804d32ee08ef2"
@@ -2097,6 +2103,10 @@ dot-prop@^3.0.0:
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-3.0.0.tgz#1b708af094a49c9a0e7dbcad790aba539dac1177"
   dependencies:
     is-obj "^1.0.0"
+
+dropzone@4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/dropzone/-/dropzone-4.3.0.tgz#48b0b8f2ad092872e4b535b672a7c3f1a1d67c91"
 
 duplexer2@^0.1.4:
   version "0.1.4"

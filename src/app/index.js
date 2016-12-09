@@ -1,16 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DropzoneModule } from 'angular2-dropzone-wrapper';
 
 import { routing, RootComponent } from './routes';
 import { LoudlyComponent } from './loudly';
 import { UploadComponent } from './upload/upload';
 
+const DROPZONE_CONFIG = {
+  server: 'http://localhost:3000/upload',
+  maxFileSize: 50
+};
+
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    routing
+    routing,
+    DropzoneModule.forRoot(DROPZONE_CONFIG)
   ],
   declarations: [
     RootComponent,
