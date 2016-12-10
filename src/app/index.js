@@ -8,7 +8,7 @@ import { LoudlyComponent } from './loudly';
 import { UploadComponent } from './upload/upload';
 
 const DROPZONE_CONFIG = {
-  server: 'http://localhost:3000/upload',
+  server: 'http://httpbin.org/post',
   maxFileSize: 50
 };
 

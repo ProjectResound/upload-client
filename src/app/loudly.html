@@ -1,5 +1,5 @@
 <div class="row full-height loudly-upload">
-  <dropzone class="col s3" [message]="'Drag & drop your files here'">
+  <dropzone class="col s3" [message]="'Drag & drop your files here'" (dragStart)="dragStart($event)">
     <upload-zone></upload-zone>
   </dropzone>
   <div class="col s9">
