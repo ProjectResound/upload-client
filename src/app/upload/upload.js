@@ -3,11 +3,11 @@
 import { Component, NgZone } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-const FlacEncoder = require('./flac/flac.worker.js');
 
 const Flow = require('@flowjs/flow.js/dist/flow.min');
 
-const uploadEndpoint = 'http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload';
+const uploadEndpoint = 'http://localhost:3000/upload';
+// 'http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload';
 
 @Component({
   selector: 'loudly-app',
@@ -22,23 +22,22 @@ export class UploadComponent {
         author: ['', Validators.required]
       }
     );
-    this.worker.postMessage({
-      command: 'prefetch'
-    });
   }
+
   constructor(zone: NgZone) {
-    this.worker = new FlacEncoder();
     this.formBuilder = new FormBuilder();
 
     this.flow = new Flow({
       target: uploadEndpoint,
-      chunkSize: 1024 * 512,
+      chunkSize: 1024 * 1024,
       forceChunkSize: true,
       allowDuplicateUploads: true
     });
 
-    this.flow.on('fileProgress', (file, chunk) => {
-      this.progress = parseInt(this.flow.progress() * 100, 10);
+    this.flow.on('fileProgress', () => {
+      zone.run(() => {
+        this.progress = parseInt(this.flow.progress() * 100, 10);
+      });
     });
 
     this.flow.on('error', (file, message) => {
@@ -58,29 +57,17 @@ export class UploadComponent {
         this.error = true;
       }
     });
-
-    this.worker.onmessage = (e) => {
-      if (e.data && e.data.reply === 'done') {
-        const fileObject = new Blob([e.data.values[this.encodedFileName].blob], { type: 'audio/x-flac' });
-        fileObject.name = this.encodedFileName;
-        zone.run(() => {
-          this.flow.addFile(fileObject);
-          this.flow.upload();
-          this.showCancel = true;
-          this.progress = parseInt(this.flow.progress() * 100, 10);
-          this.showEncodingMsg = false;
-          this.showProgress = true;
-        });
-      }
-    };
   }
 
   upload() {
     this.showUpload = false;
-    this.showEncodingMsg = true;
+    this.flow.addFile(this.file);
+    this.flow.upload();
+    this.showCancel = true;
+    this.progress = parseInt(this.flow.progress() * 100, 10);
+    this.showProgress = true;
     this.error = false;
     this.success = false;
-    this._readFile(this.encodedFileName);
   }
 
   addFile(event) {
@@ -89,33 +76,7 @@ export class UploadComponent {
     this.showUpload = true;
     this.flow.cancel();
     const f = srcElement.files[0];
-    this.encodedFileName = f.name.replace(/\.[^\.]+$/, '.flac');
     this.file = f;
-  }
-
-  _readFile(encodedFileName) {
-    const fr = new FileReader();
-    fr.addEventListener('loadend', () => {
-      const outData = {};
-      outData[encodedFileName] = {
-        MIME: 'audio/flac'
-      };
-      const args = [
-        this.file.name,
-        '--fast',
-        `-T "TITLE=${this.metadataForm.controls.title.value}"`,
-        `-T "ARTIST=${this.metadataForm.controls.author.value}"`
-      ];
-      const fileData = {};
-      fileData[this.file.name] = new Uint8Array(fr.result);
-      this.worker.postMessage({
-        command: 'encode',
-        outData,
-        args,
-        fileData
-      });
-    });
-    fr.readAsArrayBuffer(this.file);
   }
 
   pause() {

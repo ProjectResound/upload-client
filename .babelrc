@@ -16,7 +16,6 @@
     }
   },
   "ignore": [
-    "*.worker.js",
-    "flac*.js"
+    "*.worker.js"
   ]
 }
