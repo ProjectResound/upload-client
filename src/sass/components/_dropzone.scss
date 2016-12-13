@@ -1,7 +1,14 @@
 // Dropzone
 .loudly-upload {
+  margin-bottom: 0px;
+
   .dropzone {
     background-color: $secondary-background-color;
+<<<<<<< HEAD
+=======
+    min-height: 100vh;
+    padding: 0 0;
+>>>>>>> Has dropzone default view
 
     &.dz-started {
       .dz-message {
@@ -29,10 +36,56 @@
     font-size: 1.5rem;
     font-weight: lighter;
   }
-  .placeholder .btn {
+  .btn {
     background-color: $primary-color;
     color: white;
     padding: 0.75em;
     margin-top: 1em;
+  }
+
+  .children-right {
+    width: 100%;
+    text-align: right;
+  }
+
+  .action-btn {
+    display: inline-block;
+    font-size: 0.75em;
+    padding: 0.75em 1.5em;
+  }
+
+  .queue-title {
+    color: $secondary-color;
+    margin: 1em;
+  }
+
+  .dz-filename {
+    margin-bottom: 1em;
+  }
+
+  .dz-preview {
+    margin: 1px 2px;
+    background: white;
+    padding: 1em 1.5em;
+    position: relative;
+  }
+
+  .dz-preview > .cancel {
+    color: $gray-color;
+    cursor: pointer;
+    position: absolute;
+    top: 0.75em;
+    right: 0.5em;
+  }
+
+  label {
+    color: $gray-color;
+    display: block;
+    font-size: 0.75em;
+    font-weight: 600;
+  }
+
+  input[type=text] {
+    min-width: 100%;
   }
 }

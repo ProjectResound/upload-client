@@ -1,11 +1,9 @@
-/* global FileReader, Blob */
+/* global FileReader, Blob, jQuery */
 
-import { Component, NgZone, ElementRef } from '@angular/core';
+import { Component, NgZone, ElementRef, Renderer } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 const Dropzone = require('dropzone');
-
-Dropzone.autoDiscover = false;
 
 const Flow = require('@flowjs/flow.js/dist/flow.min');
 
@@ -28,7 +26,12 @@ export class DropzoneComponent {
     this.initDropzone();
   }
 
-  constructor(zone: NgZone, elem: ElementRef) {
+  constructor(zone: NgZone, elem: ElementRef, renderer: Renderer) {
+    this.completedFiles = {};
+    this.renderer = renderer;
+    this.uploadFile = () => {
+      console.log('click click');
+    };
     this.element = elem.nativeElement;
     this.formBuilder = new FormBuilder();
 
@@ -53,6 +56,7 @@ export class DropzoneComponent {
       if (message === ' ') {
         return;
       }
+      this.completedFiles[file] = true;
 
       const response = JSON.parse(message);
       if (file.size === response.fileSize) {
@@ -65,16 +69,47 @@ export class DropzoneComponent {
   }
 
   initDropzone() {
+    Dropzone.autoDiscover = false;
+
     this._dropzone = new Dropzone(this.element, {
       url: uploadEndpoint,
-      dictDefaultMessage: require('./dropzone-placeholder.html'),
-      previewTemplate: '<div>DROPZONE PREVIEW TEMPLATE</div>',
-      previewContainer: '#previews'
+      dictDefaultMessage: require('./placeholder.html'),
+      previewTemplate: require('./preview-template.html'),
+      previewContainer: '#previews',
+      autoProcessQueue: false,
+      dictRemoveFileConfirmation: 'Are you sure you want to remove this file from the queue?',
+      acceptedFiles: 'audio/wav'
     });
 
     this._dropzone.on('addedfile', (file) => {
-      console.log('added', file);
+      this.showQueue = true;
+      const uploadButton = file.previewElement.getElementsByClassName('upload-button')[0];
+      if (uploadButton) {
+        this.renderer.listen(uploadButton, 'click', () => {
+          this.flow.addFile(file);
+          this.flow.upload();
+        //  verify title and contributor filled
+        //  flow.upload
+        //  show progress bar
+        //  hide upload button
+        //  show pause button
+        });
+      }
     });
+
+    this._dropzone.on('removedfile', () => {
+      if (this._dropzone.getQueuedFiles().length === 0) {
+        this.showQueue = false;
+      }
+    });
+  }
+
+  uploadFile(file) {
+    console.log('upload file happened', file);
+    if (!this._dropzone) {
+      return;
+    }
+    this._dropzone.processFile(file);
   }
 
   upload() {

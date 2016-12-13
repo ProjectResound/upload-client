@@ -1,0 +1,19 @@
+<div class="dz-preview dz-file-preview">
+  <button class="cancel" data-dz-remove><img src="/assets/images/button-remove.png"></button>
+  <div class="dz-details">
+    <div class="dz-filename"><span data-dz-name></span></div>
+    <div class="row">
+      <label>Title</label>
+      <input type="text" placeholder="What is this file about?">
+    </div>
+    <div class="row">
+      <label>Contributor</label>
+      <input type="text" placeholder="Who made this? (Separate 2+ names with commas)">
+    </div>
+  </div>
+  <div class="children-right" *ngIf="uploadFile">
+    <button class="action-btn btn upload-button">
+      Upload this file
+    </button>
+  </div>
+</div>

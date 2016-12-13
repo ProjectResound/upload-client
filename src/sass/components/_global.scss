@@ -4,6 +4,12 @@ body {
   margin: 0px;
 }
 
+button {
+  border: none;
+  background-color: inherit;
+  outline: none;
+}
+
 // Positioning
 .valign-wrapper {
   display: flex;
