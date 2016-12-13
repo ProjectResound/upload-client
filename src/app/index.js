@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { routing, RootComponent } from './routes';
 import { LoudlyComponent } from './loudly';
-import { UploadComponent } from './upload/upload';
+import { DropzoneComponent } from './dropzone/dropzone';
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import { UploadComponent } from './upload/upload';
   declarations: [
     RootComponent,
     LoudlyComponent,
-    UploadComponent
+    DropzoneComponent
   ],
   bootstrap: [RootComponent]
 })

@@ -7,6 +7,8 @@ body {
 // Dropzone
 .loudly-upload {
   .dropzone {
+    background-color: $secondary-background-color;
+
     &.dz-started {
       .dz-message {
         display: none;

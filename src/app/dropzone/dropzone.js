@@ -5,6 +5,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 const Dropzone = require('dropzone');
 
+Dropzone.autoDiscover = false;
+
 const Flow = require('@flowjs/flow.js/dist/flow.min');
 
 const uploadEndpoint = 'http://localhost:3000/upload';
@@ -12,10 +14,10 @@ const uploadEndpoint = 'http://localhost:3000/upload';
 
 @Component({
   selector: 'dropzone',
-  template: require('./upload.html')
+  template: require('./dropzone.html')
 })
 
-export class UploadComponent {
+export class DropzoneComponent {
   ngOnInit() {
     this.metadataForm = this.formBuilder.group(
       {
