@@ -4,30 +4,9 @@ body {
   margin: 0px;
 }
 
-// Dropzone
-.loudly-upload {
-  .dropzone {
-    background-color: $secondary-background-color;
-
-    &.dz-started {
-      .dz-message {
-        display: none;
-      }
-    }
-
-    &.dz-drag-hover {
-      border: 2px $primary-color dashed;
-      .dz-message {
-        opacity: 0.5;
-      }
-    }
-  }
-  .dropzone.dz-wrapper .dz-message {
-    background-color: $secondary-background-color;
-    border: none;
-  }
-
-  .dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
-    min-height: 100vh;
-  }
+// Positioning
+.valign-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

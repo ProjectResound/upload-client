@@ -14,7 +14,7 @@ const uploadEndpoint = 'http://localhost:3000/upload';
 
 @Component({
   selector: 'dropzone',
-  template: require('./dropzone.html')
+  template: ''
 })
 
 export class DropzoneComponent {
@@ -66,7 +66,14 @@ export class DropzoneComponent {
 
   initDropzone() {
     this._dropzone = new Dropzone(this.element, {
-      url: uploadEndpoint
+      url: uploadEndpoint,
+      dictDefaultMessage: require('./dropzone-placeholder.html'),
+      previewTemplate: '<div>DROPZONE PREVIEW TEMPLATE</div>',
+      previewContainer: '#previews'
+    });
+
+    this._dropzone.on('addedfile', (file) => {
+      console.log('added', file);
     });
   }
 
