@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DropzoneConfigInterface } from 'angular2-dropzone-wrapper';
 
 @Component({
   selector: 'loudly-container',
@@ -7,7 +6,4 @@ import { DropzoneConfigInterface } from 'angular2-dropzone-wrapper';
 })
 
 export class LoudlyComponent {
-  dragStart() {
-    console.log('dragStart');
-  }
 }

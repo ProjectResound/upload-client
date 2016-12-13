@@ -1,8 +1,9 @@
 /* global FileReader, Blob */
 
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
+const Dropzone = require('dropzone');
 
 const Flow = require('@flowjs/flow.js/dist/flow.min');
 
@@ -10,7 +11,7 @@ const uploadEndpoint = 'http://localhost:3000/upload';
 // 'http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload';
 
 @Component({
-  selector: 'upload-zone',
+  selector: 'dropzone',
   template: require('./upload.html')
 })
 
@@ -22,9 +23,11 @@ export class UploadComponent {
         author: ['', Validators.required]
       }
     );
+    this.initDropzone();
   }
 
-  constructor(zone: NgZone) {
+  constructor(zone: NgZone, elem: ElementRef) {
+    this.element = elem.nativeElement;
     this.formBuilder = new FormBuilder();
 
     this.flow = new Flow({
@@ -56,6 +59,12 @@ export class UploadComponent {
       } else {
         this.error = true;
       }
+    });
+  }
+
+  initDropzone() {
+    this._dropzone = new Dropzone(this.element, {
+      url: uploadEndpoint
     });
   }
 
