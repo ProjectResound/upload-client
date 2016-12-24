@@ -1,14 +1,23 @@
 import { TestBed, async } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { LoudlyComponent } from './loudly';
-import { DropzoneComponent } from './dropzone/dropzone'
+import { DropzoneComponent } from './dropzone/dropzone';
+import { FileUploadComponent } from './dropzone/file-upload';
+import { durationPipe } from './duration-pipe';
 
 describe('Loudly component', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        ReactiveFormsModule
+      ],
       declarations: [
         LoudlyComponent,
-        DropzoneComponent
+        DropzoneComponent,
+        FileUploadComponent,
+        durationPipe
       ]
     });
     TestBed.compileComponents();
