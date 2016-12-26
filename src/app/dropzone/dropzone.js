@@ -21,49 +21,8 @@ export class DropzoneComponent {
   }
 
   constructor() {
+    this.audioContext = new AudioContext();
     this.dropzoneQueue = {};
-    this.completedFiles = {};
-  }
-
-  _initFlow() {
-    this.flow = new Flow({
-      target: uploadEndpoint,
-      chunkSize: 1024 * 1024,
-      forceChunkSize: true,
-      allowDuplicateUploads: true
-    });
-
-    this.flow.on('fileProgress', (flowFile) => {
-      const progress = flowFile.progress();
-      this.dropzoneQueue[flowFile.name].status.progress = parseInt(progress * 100, 10);
-      if (progress === 1) {
-        this.dropzoneQueue[flowFile.name].status.state = 'completed';
-      }
-    });
-
-    this.flow.on('fileAdded', (flowFile) => {
-      this.dropzoneQueue[flowFile.name].flowFile = flowFile;
-    });
-
-    this.flow.on('error', (flowFile, message) => {
-      this.dropzoneQueue[flowFile.name].status.state = 'failed';
-      console.log(message);
-    });
-
-    this.flow.on('fileSuccess', (file, message) => {
-      if (message === ' ') {
-        return;
-      }
-      this.completedFiles[file] = true;
-
-      const response = JSON.parse(message);
-      if (file.size === response.fileSize) {
-        this.error = false;
-        this.success = true;
-      } else {
-        this.error = true;
-      }
-    });
   }
 
   onDrop(event) {
@@ -77,27 +36,6 @@ export class DropzoneComponent {
     this.dropzoneClasses = undefined;
 
     event.preventDefault();
-  }
-
-  _addToDropzoneQueue(file) {
-    this.dropzoneQueue[file.name] = {};
-    this.dropzoneQueue[file.name].name = file.name;
-    this.dropzoneQueue[file.name].fileObject = file;
-    this.dropzoneQueue[file.name].size = Math.round(file.size / 10000) / 100;
-    this.dropzoneQueue[file.name].status = {};
-    this._populateFileDuration(file);
-  }
-
-  _populateFileDuration(file) {
-    const reader = new FileReader();
-    reader.addEventListener('loadend', () => {
-      const audioContext = new AudioContext();
-      audioContext.decodeAudioData(reader.result, (decoded) => {
-        this.dropzoneQueue[file.name].duration = decoded.duration;
-        reader.removeEventListener('loadend');
-      });
-    });
-    reader.readAsArrayBuffer(file);
   }
 
   dragOver(event) {
@@ -146,5 +84,62 @@ export class DropzoneComponent {
 
   dropzoneQueueKeysArray() {
     return Object.keys(this.dropzoneQueue);
+  }
+
+  _initFlow() {
+    this.flow = new Flow({
+      target: uploadEndpoint,
+      chunkSize: 1024 * 1024,
+      forceChunkSize: true,
+      allowDuplicateUploads: true
+    });
+
+    this.flow.on('fileProgress', (flowFile) => {
+      const progress = flowFile.progress();
+      this.dropzoneQueue[flowFile.name].status.progress = parseInt(progress * 100, 10);
+    });
+
+    this.flow.on('fileAdded', (flowFile) => {
+      this.dropzoneQueue[flowFile.name].flowFile = flowFile;
+    });
+
+    this.flow.on('error', (flowFile, message) => {
+      this.dropzoneQueue[flowFile.name].status.state = 'failed';
+      console.log(message);
+    });
+
+    this.flow.on('fileSuccess', (flowFile, message) => {
+      if (message === ' ') {
+        return;
+      }
+
+      const response = JSON.parse(message);
+      if (flowFile.size === response.fileSize) {
+        this.dropzoneQueue[flowFile.name].status.state = 'completed';
+      } else {
+        this.dropzoneQueue[flowFile.name].status.state = 'failed';
+        console.log(message);
+      }
+    });
+  }
+
+  _addToDropzoneQueue(file) {
+    this.dropzoneQueue[file.name] = {};
+    this.dropzoneQueue[file.name].name = file.name;
+    this.dropzoneQueue[file.name].fileObject = file;
+    this.dropzoneQueue[file.name].size = Math.round(file.size / 10000) / 100;
+    this.dropzoneQueue[file.name].status = {};
+    this._populateFileDuration(file);
+  }
+
+  _populateFileDuration(file) {
+    const reader = new FileReader();
+    reader.addEventListener('loadend', () => {
+      this.audioContext.decodeAudioData(reader.result, (decoded) => {
+        this.dropzoneQueue[file.name].duration = decoded.duration;
+        reader.removeEventListener('loadend');
+      });
+    });
+    reader.readAsArrayBuffer(file);
   }
 }

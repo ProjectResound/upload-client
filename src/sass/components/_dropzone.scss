@@ -195,32 +195,32 @@
     height: 100%;
   }
 
-  .uploaded-container .file-title {
+  .completed-container .file-title {
     position: relative;
   }
 
-  .uploaded-container .file-title > img {
+  .completed-container .file-title > img {
     position: absolute;
     top: 3px;
     left: -20px;
   }
 
-  .uploaded-container .details {
+  .completed-container .details {
     font-size: 0.75rem;
     color: $gray-color;
     padding: 0;
   }
 
-  .uploaded-container .edit {
+  .completed-container .edit {
     text-align: right;
     padding: 0;
   }
 
-  .uploaded-container .row{
+  .completed-container .row{
     margin: 1em 0 0 0;
   }
 
-  .uploaded-container a {
+  .completed-container a {
     font-size: 0.75rem;
     color: $secondary-color;
   }

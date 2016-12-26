@@ -4,7 +4,7 @@
     <div class="dz-filename">{{file.name}}</div>
     <div class="row form-group">
       <label>Title</label>
-      <input class="form-control" type="text" placeholder="What is this file about?"
+      <input class="form-control title" type="text" placeholder="What is this file about?"
              [formControl]="fileForm.controls['title']">
       <div class="alert" *ngIf="!fileForm.controls['title'].pristine && !fileForm.controls['title'].valid">
         You must provide a title (min {{textFieldMin}} chars).
@@ -12,7 +12,7 @@
     </div>
     <div class="row form-group">
       <label>Contributor</label>
-      <input class="form-control" type="text" placeholder="Who made this? (Separate 2+ names with commas)"
+      <input class="form-control contributor" type="text" placeholder="Who made this? (Separate 2+ names with commas)"
              [formControl]="fileForm.controls['contributor']">
       <div class="alert" *ngIf="!fileForm.controls['contributor'].pristine && !fileForm.controls['contributor'].valid">
         You must provide a contributor name (min {{textFieldMin}} chars).
@@ -25,7 +25,7 @@
     </button>
   </div>
 </form>
-<div *ngIf="file.status && file.status.state === 'uploading'">
+<div *ngIf="file.status && file.status.state === 'uploading'" class="uploading-container">
   <div class="file-title">{{file.formValues.title}}</div>
   <div class="progress-wrapper">
     <button class="upload-pause" (click)="pause.emit(file); false;">
@@ -36,10 +36,10 @@
     </div>
   </div>
 </div>
-<div *ngIf="file.status && file.status.state === 'paused'">
+<div *ngIf="file.status && file.status.state === 'paused'" class="paused-container">
   <div class="file-title">{{file.formValues.title}}</div>
   <div class="progress-wrapper paused">
-    <button class="upload-pause" (click)="resume.emit(file); false;">
+    <button class="upload-pause resume" (click)="resume.emit(file); false;">
       <img src="/assets/images/button-resume_upload.png" alt="Resume Upload">
     </button>
     <div class="progress" [ngStyle]="{'width': file.status.progress + '%'}">
@@ -47,7 +47,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="file.status && file.status.state === 'completed'" class="uploaded-container">
+<div *ngIf="file.status && file.status.state === 'completed'" class="completed-container success-container">
   <div class="file-title">
     <img src="/assets/images/indicator-success.png" class="indicator">
     {{file.formValues.title}}
@@ -69,7 +69,7 @@
   <a class="btn yes" (click)="cancelConfirmed(true)">Yes</a>
   <a class="btn no" (click)="cancelConfirmed(false)">No</a>
 </div>
-<div *ngIf="file.status && file.status.state === 'failed'" class="uploaded-container failed-container">
+<div *ngIf="file.status && file.status.state === 'failed'" class="completed-container failed-container">
   <div class="file-title">
     <img src="/assets/images/indicator-failure.png" class="indicator">
     {{file.formValues.title}}
