@@ -1,4 +1,4 @@
-<a class="cancel" (click)="onCancel()"><img src="/assets/images/button-remove.png"></a>
+<a class="cancel" (click)="onCancel()" *ngIf="file.status.state !== 'completed'"><img src="/assets/images/button-remove.png"></a>
 <form [formGroup]="fileForm" (ngSubmit)="submitForm(file, fileForm.value)" *ngIf="!file.status.state">
   <div class="dz-details">
     <div class="dz-filename">{{file.name}}</div>
@@ -47,9 +47,9 @@
     </div>
   </div>
 </div>
-<div *ngIf="file.status && file.status.state === 'completed'" class="completed-container">
+<div *ngIf="file.status && file.status.state === 'completed'" class="uploaded-container">
   <div class="file-title">
-    <img src="/assets/images/indicator-success.png" class="indicator-success">
+    <img src="/assets/images/indicator-success.png" class="indicator">
     {{file.formValues.title}}
   </div>
   <div class="row">
@@ -68,4 +68,20 @@
   </div>
   <a class="btn yes" (click)="cancelConfirmed(true)">Yes</a>
   <a class="btn no" (click)="cancelConfirmed(false)">No</a>
+</div>
+<div *ngIf="file.status && file.status.state === 'failed'" class="uploaded-container failed-container">
+  <div class="file-title">
+    <img src="/assets/images/indicator-failure.png" class="indicator">
+    {{file.formValues.title}}
+  </div>
+  <div class="upload-failed">
+    <div class="msg">
+      upload failed
+    </div>
+  </div>
+  <div class="children-right">
+    <div class="action-btn btn" (click)="onUpload.emit(file)">
+        Try again
+    </div>
+  </div>
 </div>

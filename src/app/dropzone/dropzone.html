@@ -13,7 +13,7 @@
       </div>
       <label class="upload-input-container btn">
         Or, browse for files
-        <input type="file" (change)="onInputChange($event)" #fileInput>
+        <input type="file" (change)="onInputChange($event)" accept=".wav" #fileInput>
       </label>
     </div>
   </div>
@@ -25,6 +25,9 @@
                  (resume)="resumeUpload($event)"></file-upload>
   </div>
   <div class="footer" *ngIf="dropzoneQueueKeysArray().length > 0">
-    Drag & drop more files to add them to your queue
+    <label>
+      Drag & drop more files to add them to your queue
+      <input type="file" (change)="onInputChange($event)" accept=".wav" #fileInput>
+    </label>
   </div>
 </div>

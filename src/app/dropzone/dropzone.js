@@ -45,8 +45,9 @@ export class DropzoneComponent {
       this.dropzoneQueue[flowFile.name].flowFile = flowFile;
     });
 
-    this.flow.on('error', (file, message) => {
-      this.error = message;
+    this.flow.on('error', (flowFile, message) => {
+      this.dropzoneQueue[flowFile.name].status.state = 'failed';
+      console.log(message);
     });
 
     this.flow.on('fileSuccess', (file, message) => {
@@ -69,7 +70,9 @@ export class DropzoneComponent {
     const files = event.dataTransfer.files;
     for (let i = 0; i < files.length; i += 1) {
       const file = files[i];
-      this._addToDropzoneQueue(file);
+      if (file.type === 'audio/wav') {
+        this._addToDropzoneQueue(file);
+      }
     }
     this.dropzoneClasses = undefined;
 
@@ -89,9 +92,7 @@ export class DropzoneComponent {
     const reader = new FileReader();
     reader.addEventListener('loadend', () => {
       const audioContext = new AudioContext();
-      console.log(reader.result);
       audioContext.decodeAudioData(reader.result, (decoded) => {
-        console.log(decoded);
         this.dropzoneQueue[file.name].duration = decoded.duration;
         reader.removeEventListener('loadend');
       });

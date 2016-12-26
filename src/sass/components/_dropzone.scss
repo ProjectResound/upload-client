@@ -38,9 +38,13 @@
 
   .queue > .footer {
     padding: 1rem;
+  }
+
+  .footer > label {
     font-size: .9rem;
     color: $secondary-color;
     font-style: italic;
+    font-weight: normal;
   }
 
   .valign-wrapper {
@@ -82,6 +86,7 @@
     display: inline-block;
     font-size: 0.75em;
     padding: 0.75em 1.5em;
+    cursor: pointer;
   }
 
   .action-btn:disabled {
@@ -128,6 +133,25 @@
     color: $error-color;
   }
 
+  .upload-failed {
+    display: block;
+    height: $upload-bar-height;
+    width: 100%;
+    border: 1px solid $error-color;
+  }
+
+  .upload-failed > .msg {
+    color: $error-color;
+    text-transform: uppercase;
+    margin-left: 10px;
+    margin-top: 7px;
+    font-size: 0.8rem;
+  }
+
+  .failed-container .btn {
+    display: inline-block;
+  }
+
   .progress-wrapper {
     position: relative;
     height: $upload-bar-height;
@@ -171,32 +195,32 @@
     height: 100%;
   }
 
-  .completed-container .file-title {
+  .uploaded-container .file-title {
     position: relative;
   }
 
-  .completed-container .file-title > img {
+  .uploaded-container .file-title > img {
     position: absolute;
     top: 3px;
     left: -20px;
   }
 
-  .completed-container .details {
+  .uploaded-container .details {
     font-size: 0.75rem;
     color: $gray-color;
     padding: 0;
   }
 
-  .completed-container .edit {
+  .uploaded-container .edit {
     text-align: right;
     padding: 0;
   }
 
-  .completed-container .row{
+  .uploaded-container .row{
     margin: 1em 0 0 0;
   }
 
-  .completed-container a {
+  .uploaded-container a {
     font-size: 0.75rem;
     color: $secondary-color;
   }
