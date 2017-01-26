@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LoudlyComponent } from './loudly';
+import { ResoundComponent } from './resound';
 
 @Component({
-  selector: 'loudly-root',
+  selector: 'resound-root',
   template: require('./root.html')
 })
 export class RootComponent {}
@@ -11,7 +11,7 @@ export class RootComponent {}
 export const routes = [
   {
     path: '',
-    component: LoudlyComponent
+    component: ResoundComponent
   }
 ];
 

@@ -27,7 +27,7 @@ Production requirements:
 
 For production, pull down the docker image of just the distribution version of the app and run the following command, which will start nginx and serve all the files needed for the app.
 
-`docker run -d -v /nginx-logs:/var/log/nginx -p 8080:80 docker.io/scprdev/loudly-store-manage`
+`docker run -d -v /nginx-logs:/var/log/nginx -p 8080:80 docker.io/scprdev/resound-store-manage`
 
 To see this in action in your browser, get your docker machine's ip:
 

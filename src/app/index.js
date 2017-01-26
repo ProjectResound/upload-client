@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MomentModule } from 'angular2-moment';
 
 import { routing, RootComponent } from './routes';
-import { LoudlyComponent } from './loudly';
+import { ResoundComponent } from './resound';
 import { DropzoneComponent } from './dropzone/dropzone';
 import { FileUploadComponent } from './dropzone/file-upload';
 import { durationPipe } from './duration-pipe';
@@ -19,7 +19,7 @@ import { durationPipe } from './duration-pipe';
   ],
   declarations: [
     RootComponent,
-    LoudlyComponent,
+    ResoundComponent,
     DropzoneComponent,
     FileUploadComponent,
     durationPipe
