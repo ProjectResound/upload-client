@@ -5,8 +5,7 @@ import { FileUploadComponent } from './file-upload';
 
 const Flow = require('@flowjs/flow.js/dist/flow.min');
 
-const uploadEndpoint = 'http://localhost:3000/upload';
-// 'http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload';
+const uploadEndpoint = 'http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload';
 
 @Component({
   selector: 'dropzone',
@@ -89,7 +88,7 @@ export class DropzoneComponent {
   _initFlow() {
     this.flow = new Flow({
       target: uploadEndpoint,
-      chunkSize: 1024 * 1024,
+      chunkSize: 1024 * 500,
       forceChunkSize: true,
       allowDuplicateUploads: true
     });
