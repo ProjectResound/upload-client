@@ -5,7 +5,8 @@ import { FileUploadComponent } from './file-upload';
 
 const Flow = require('@flowjs/flow.js/dist/flow.min');
 
-const uploadEndpoint = 'http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload';
+const uploadEndpoint = 'http://192.168.99.100/upload';
+// http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload';
 
 @Component({
   selector: 'dropzone',
@@ -107,18 +108,8 @@ export class DropzoneComponent {
       console.log(message);
     });
 
-    this.flow.on('fileSuccess', (flowFile, message) => {
-      if (message === ' ') {
-        return;
-      }
-
-      const response = JSON.parse(message);
-      if (flowFile.size === response.fileSize) {
-        this.dropzoneQueue[flowFile.name].status.state = 'completed';
-      } else {
-        this.dropzoneQueue[flowFile.name].status.state = 'failed';
-        console.log(message);
-      }
+    this.flow.on('fileSuccess', (flowFile) => {
+      this.dropzoneQueue[flowFile.name].status.state = 'completed';
     });
   }
 
