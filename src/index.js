@@ -8,7 +8,7 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import './sass/index.scss';
-import { AppModule } from './app';
+import { ResoundApp } from './app';
 
 if (process.env.NODE_ENV === 'production') {
   enableProdMode();
@@ -17,4 +17,4 @@ if (process.env.NODE_ENV === 'production') {
   require('zone.js/dist/long-stack-trace-zone');
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+platformBrowserDynamic().bootstrapModule(ResoundApp);

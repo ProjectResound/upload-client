@@ -2,11 +2,9 @@
 
 import { Component } from '@angular/core';
 import { FileUploadComponent } from './file-upload';
+import { ConfigService } from '../config-service';
 
 const Flow = require('@flowjs/flow.js/dist/flow.min');
-
-const uploadEndpoint = 'http://192.168.99.100/upload';
-// http://rails-api-dev.us-west-2.elasticbeanstalk.com/upload';
 
 @Component({
   selector: 'dropzone',
@@ -15,14 +13,14 @@ const uploadEndpoint = 'http://192.168.99.100/upload';
 })
 
 export class DropzoneComponent {
-
   ngOnInit() {
     this._initFlow();
   }
 
-  constructor() {
+  constructor(confService: ConfigService) {
     this.audioContext = new AudioContext();
     this.dropzoneQueue = {};
+    this.apiUrl = confService.apiUrl;
   }
 
   onDrop(event) {
@@ -88,7 +86,7 @@ export class DropzoneComponent {
 
   _initFlow() {
     this.flow = new Flow({
-      target: uploadEndpoint,
+      target: this.apiUrl,
       chunkSize: 1024 * 500,
       forceChunkSize: true,
       allowDuplicateUploads: true

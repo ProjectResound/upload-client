@@ -1,3 +1,5 @@
+/* global API_URL, window */
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -8,6 +10,7 @@ import { ResoundComponent } from './resound';
 import { DropzoneComponent } from './dropzone/dropzone';
 import { FileUploadComponent } from './dropzone/file-upload';
 import { durationPipe } from './duration-pipe';
+import { ConfigService } from './config-service';
 
 @NgModule({
   imports: [
@@ -24,6 +27,7 @@ import { durationPipe } from './duration-pipe';
     FileUploadComponent,
     durationPipe
   ],
+  providers: [ConfigService],
   bootstrap: [RootComponent]
 })
-export class AppModule {}
+export class ResoundApp {}
