@@ -32,7 +32,7 @@ Production requirements:
 
 ### To run both containers easily:
 
-1. Download [prod/docker-compose.yml](docker-compose.yml)
+1. Download [docker-compose.yml](prod/docker-compose.yml)
 2. Determine what URL your API is at. For this example, I just used the ip of my docker-machine (192.168.99.100).
 3. Run `API_URL=192.168.99.100:3000 docker-compose up` in the same directory as `docker-compose.yml`
 4. The application can be seen at my docker-machine IP url (http://192.168.99.100/)
