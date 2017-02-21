@@ -54,7 +54,10 @@ export class DropzoneComponent {
 
   upload(file) {
     this.flow.addFile(file.fileObject);
+    file.flowFile.metadata = file.formValues;
+    console.log(file);
     this.flow.upload();
+
     file.status = {};
     file.status.state = 'uploading';
   }
@@ -89,7 +92,8 @@ export class DropzoneComponent {
       target: this.apiUrl,
       chunkSize: 1024 * 500,
       forceChunkSize: true,
-      allowDuplicateUploads: true
+      allowDuplicateUploads: true,
+      query: flowFile => flowFile.metadata
     });
 
     this.flow.on('fileProgress', (flowFile) => {
