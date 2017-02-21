@@ -55,7 +55,6 @@ export class DropzoneComponent {
   upload(file) {
     this.flow.addFile(file.fileObject);
     file.flowFile.metadata = file.formValues;
-    console.log(file);
     this.flow.upload();
 
     file.status = {};
