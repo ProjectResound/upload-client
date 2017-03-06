@@ -53,6 +53,7 @@ export class DropzoneComponent {
   }
 
   upload(file) {
+    this.flow.removeFile(file.flowFile);
     this.flow.addFile(file.fileObject);
     file.flowFile.metadata = file.formValues;
     this.flow.upload();
@@ -63,7 +64,7 @@ export class DropzoneComponent {
 
   removeFile(file) {
     delete this.dropzoneQueue[file.name];
-    this.flow.removeFile(file.fileObject);
+    this.flow.removeFile(file.flowFile);
   }
 
   pauseUpload(file) {
@@ -104,9 +105,8 @@ export class DropzoneComponent {
       this.dropzoneQueue[flowFile.name].flowFile = flowFile;
     });
 
-    this.flow.on('error', (flowFile, message) => {
+    this.flow.on('fileError', (flowFile, message) => {
       this.dropzoneQueue[flowFile.name].status.state = 'failed';
-      console.log(message);
     });
 
     this.flow.on('fileSuccess', (flowFile) => {
