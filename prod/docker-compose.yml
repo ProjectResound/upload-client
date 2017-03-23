@@ -1,10 +1,48 @@
 version: '2'
 services:
+  db:
+    image: postgres
+    volumes:
+      - 'db:/usr/local/var/postgres/pg_data/'
+  redis:
+    image: redis:3.0.7
+    ports: ['6379:6379']
+    volumes:
+      - 'redis:/usr/local/var/db/redis/'
+    depends_on:
+      - 'db'
   api:
     image: 'scprdev/resound-api'
     ports: ['3000:3000']
+    depends_on:
+      - 'redis'
+      - 'db'
+    environment:
+      RAILS_ENV: $RAILS_ENV
+      AWS_REGION: $AWS_REGION
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+      AWS_BUCKET: $AWS_BUCKET
+      SECRET_KEY_BASE: $SECRET_KEY_BASE
+    command: bundle exec rails s -p 3000
   web:
     image: 'scprdev/resound-store-manage'
     ports: ['80:80']
     environment:
-      - API_URL=$API_URL
+      API_URL: $API_URL
+  worker:
+    image: 'scprdev/resound-worker'
+    ports: ['3003:3003']
+    environment:
+      RAILS_RESQUE_REDIS: 'redis:6379'
+      RAILS_ENV: $RAILS_ENV
+      AWS_REGION: $AWS_REGION
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+      AWS_BUCKET: $AWS_BUCKET
+    depends_on:
+      - 'redis'
+
+volumes:
+  redis:
+  db:
