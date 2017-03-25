@@ -25,6 +25,25 @@ services:
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
       AWS_BUCKET: $AWS_BUCKET
       SECRET_KEY_BASE: $SECRET_KEY_BASE
+    volumes:
+      - 'api:/app/'
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  worker:
+    image: 'scprdev/resound-api'
+    command: bundle exec rake resque:work QUEUE='*' VERBOSE=1
+    depends_on:
+      - 'redis'
+      - 'db'
+    environment:
+      RAILS_ENV: $RAILS_ENV
+      RAILS_RESQUE_REDIS: 'redis:6379'
+      AWS_REGION: $AWS_REGION
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+      AWS_BUCKET: $AWS_BUCKET
+      SECRET_KEY_BASE: $SECRET_KEY_BASE
+    volumes:
+      - 'api:/app/'
   web:
     image: 'scprdev/resound-store-manage'
     ports: ['80:80']
@@ -33,3 +52,4 @@ services:
 volumes:
   redis:
   db:
+  api:
