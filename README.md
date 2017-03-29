@@ -33,13 +33,15 @@ Production requirements:
 ### The simplest way to get a demo of this product with the default settings:
 
 1. Download [docker-compose.yml](prod/docker-compose.yml)
-2. Determine what URL your API is at. For this example, I just used the ip of my docker-machine (192.168.99.100).
+2. Determine what URL your API is at. For newer versions of Docker for Mac, this will just be localhost. For containers
+hosted on docker-machine, the ip would be what `docker-machine ip` prints out. For this example, I just used the ip of my 
+docker-machine (192.168.99.100).
 3. Run the following commands in the same directory as `docker-compose.yml`
     * `SECRET_KEY_BASE=pantsareok RAILS_ENV=production API_URL=192.168.99.100:3000 docker-compose run api rake db:create`
     * `SECRET_KEY_BASE=pantsareok RAILS_ENV=production API_URL=192.168.99.100:3000 docker-compose run api rake db:migrate`
     * `SECRET_KEY_BASE=pantsareok RAILS_ENV=production API_URL=192.168.99.100:3000 docker-compose up`
 4. The last command above will launch a container for the api, a container for the default postgres database (as well
 as the required migrations), a container for background workers, a container for Redis, and the Resound: Store + Manage
-container, which is what is visible when visiting your docker machine's ip (`docker-machien ip`) in the browser.
+container, which is what is visible when visiting your docker host in the browser.
 5. To look at what's going on in the background workers queue, resque-web is by default accessible from:
-    `http://DOCKER.MACHINE.IP:3000/resque`
+    `http://[DOCKER HOST IP / LOCALHOST]:3000/resque`
