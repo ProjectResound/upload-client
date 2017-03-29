@@ -8,6 +8,10 @@
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-2.1.0.tgz#1388e1b6adadb4495e1cb5f0fa5322728de0d003"
 
+"@angular/compiler@^2.1.0":
+  version "2.4.10"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-2.4.10.tgz#f51fd34820b2a02c7cb61fbcf49873c58056fb0c"
+
 "@angular/core@^2.0.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-2.1.0.tgz#a2fdb0f76f72e5ac521feadd4d119f60afff2bd3"
@@ -71,6 +75,10 @@ acorn@^3.0.4, acorn@^3.2.0:
 acorn@^4.0.1:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.3.tgz#1a3e850b428e73ba6b09d1cc527f5aaad4d03ef1"
+
+actioncable@^5.0.0:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/actioncable/-/actioncable-5.0.2.tgz#84dbc39b51aee4e7aeb1a66a5409f28d4e98eeb3"
 
 after@0.8.1:
   version "0.8.1"
@@ -4578,6 +4586,15 @@ next-tick@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
+ng2-cable:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ng2-cable/-/ng2-cable-1.1.0.tgz#7ec5af58075ce8b66e488851fe83f08de912a3d4"
+  dependencies:
+    "@angular/compiler" "^2.1.0"
+    actioncable "^5.0.0"
+    rxjs "5.0.0-beta.12"
+    zone.js "^0.6.6"
+
 no-case@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.0.tgz#ca2825ccb76b18e6f79d573dcfbf1eace33dd164"
@@ -7102,7 +7119,7 @@ zip-object@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/zip-object/-/zip-object-0.1.0.tgz#c1a0da04c88c837756e248680a03ff902ec3f53a"
 
-zone.js@^0.6.23:
+zone.js@^0.6.23, zone.js@^0.6.6:
   version "0.6.26"
   resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.6.26.tgz#067c13b8b80223a89b62e9dc82680f09762c4636"
 

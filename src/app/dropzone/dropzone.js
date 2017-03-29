@@ -3,24 +3,30 @@
 import { Component } from '@angular/core';
 import { FileUploadComponent } from './file-upload';
 import { ConfigService } from '../config-service';
+import { Ng2Cable, Broadcaster } from 'ng2-cable/js/index';
 
 const Flow = require('@flowjs/flow.js/dist/flow.min');
 
 @Component({
   selector: 'dropzone',
   template: require('./dropzone.html'),
-  directives: [FileUploadComponent]
+  directives: [FileUploadComponent],
+  providers: [Ng2Cable, Broadcaster]
 })
 
 export class DropzoneComponent {
   ngOnInit() {
     this._initFlow();
+    this._initWebsocket();
   }
 
-  constructor(confService: ConfigService) {
+  constructor(confService: ConfigService, cable: Ng2Cable, broadcaster: Broadcaster) {
     this.audioContext = new AudioContext();
     this.dropzoneQueue = {};
     this.apiUrl = confService.apiUrl;
+
+    this.cable = cable;
+    this.broadcaster = broadcaster;
   }
 
   onDrop(event) {
@@ -87,6 +93,17 @@ export class DropzoneComponent {
     return Object.keys(this.dropzoneQueue);
   }
 
+  _initWebsocket() {
+    this.cable.subscribe('ws://localhost:3000/cable', 'FilesChannel');
+    this.broadcaster.on('FilesChannel').subscribe(
+      (message) => {
+        if (message.status === 'success') {
+          this.dropzoneQueue[message.filename].status.state = 'completed';
+        }
+      }
+    );
+  }
+
   _initFlow() {
     this.flow = new Flow({
       target: this.apiUrl,
@@ -105,12 +122,8 @@ export class DropzoneComponent {
       this.dropzoneQueue[flowFile.name].flowFile = flowFile;
     });
 
-    this.flow.on('fileError', (flowFile, message) => {
+    this.flow.on('fileError', (flowFile) => {
       this.dropzoneQueue[flowFile.name].status.state = 'failed';
-    });
-
-    this.flow.on('fileSuccess', (flowFile) => {
-      this.dropzoneQueue[flowFile.name].status.state = 'completed';
     });
   }
 
