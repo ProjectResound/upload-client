@@ -107,7 +107,7 @@ export class DropzoneComponent {
   _initFlow() {
     this.flow = new Flow({
       target: this.apiUrl,
-      chunkSize: 1024 * 500,
+      chunkSize: 1024 * 1024,
       forceChunkSize: true,
       allowDuplicateUploads: true,
       query: flowFile => flowFile.metadata
